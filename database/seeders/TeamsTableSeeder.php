@@ -15,16 +15,10 @@ class TeamsTableSeeder extends Seeder
      */
     public function run(): void
     {
-        $countries = ['Germany', 'Belgium', 'France', 'Portugal',
-'Scotland', 'Spain', 'Turkiye', 'Austria', 'England', 'Hungary',
-'Slovakia', 'Albania', 'Czechia', 'Denmark', 'Netherlands',
-'Romania', 'Switzerland', 'Slovenia', 'Serbia', 'Croatia', 'Italy',
-        ];
-
-        foreach (File::glob(public_path() . '/images/flags/*.png*') as $filename) {
+        foreach (File::glob(public_path('storage/') . 'images/flags/*.png*') as $filename) {
 
                 Team::create(['name' => pathinfo($filename)['filename'],
-                    'flag' => $filename,
+                    'flag' => 'images/flags/'.pathinfo($filename)['basename'],
                 ]);
             }
 

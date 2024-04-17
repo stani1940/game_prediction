@@ -12,12 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('username');
-            $table->string('avatar')->nullable(true)->default('avatars/grey_avatar.jpg');
-            $table->smallInteger('boosts_left');
-            $table->boolean('being_notified');
+            $table->unsignedBigInteger('role_id')->default(2)->change();
         });
-
     }
 
     /**
@@ -26,10 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->removeColumn('username');
-            $table->removeColumn('avatar');
-            $table->removeColumn('boosts_left');
-            $table->removeColumn('being_notified');
+            //
         });
     }
 };
