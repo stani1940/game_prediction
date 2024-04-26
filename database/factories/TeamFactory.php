@@ -19,7 +19,7 @@ class TeamFactory extends Factory
     {
         return [
             'name'=>fake()->country,
-            'flag' => fake()->imageUrl(100,100),
+            'flag' => fake()->imageUrl(100,80),
         ];
     }
 }

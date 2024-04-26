@@ -31,7 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('isAdmin')->group(function () {
-    Route::resource('/teams', TeamsController::class);
-});
 require __DIR__.'/auth.php';

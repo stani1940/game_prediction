@@ -9,6 +9,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
@@ -80,5 +81,18 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasVerifiedEmail();
+    }
+
+    public function relation_events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class)
+            ->using(EventUser::class)
+            ->withPivot([
+                'home_prediction',
+                'away_prediction',
+                'is_available',
+                'prediction_time',
+                'is_boosted'
+            ]);
     }
 }

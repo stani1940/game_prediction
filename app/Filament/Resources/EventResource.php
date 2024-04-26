@@ -6,7 +6,6 @@ use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers;
 use App\Models\Event;
 use App\Models\Team;
-use Filament\Forms;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -49,6 +48,7 @@ class EventResource extends Resource
                 TextColumn::make('awayTeam.name'),
                 ImageColumn::make('awayTeam.flag'),
                 TextColumn::make('state'),
+                TextColumn::make('category'),
             ])
             ->filters([
                 //

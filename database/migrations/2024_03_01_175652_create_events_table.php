@@ -20,6 +20,7 @@ return new class extends Migration
             $table->smallInteger('home_goals')->default(0);
             $table->smallInteger('away_goals')->default(0);
             $table->enum('state', ['Scheduled', 'In Progress', 'finished'])->default('Scheduled');
+            $table->enum('category',['Qualification', 'Group Round', 'Round of sixteen', 'Quarterfinal', 'Semifinal', 'Final']);
             $table->dateTime('start_time');
             $table->timestamps();
         });

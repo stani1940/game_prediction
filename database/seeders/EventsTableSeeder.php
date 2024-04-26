@@ -20,12 +20,14 @@ class EventsTableSeeder extends Seeder
        Event::create([
            'home_team_id' => Team::where('name','=','Germany')->first()->id,
            'away_team_id' => Team::where('name','=','Scotland')->first()->id,
+           'category' => 'Group Round',
            'start_time' => Carbon::create($year, 06, 14, 21, 00, 00,'Europe/Berlin')
        ]);
 
         Event::create([
             'home_team_id' => Team::where('name','=','Hungary')->first()->id,
             'away_team_id' => Team::where('name','=','Switzerland')->first()->id,
+            'category'=> 'Group Round',
             'start_time' => Carbon::create($year, 06, 15, 19, 00, 00,'Europe/Berlin')
         ]);
     }
