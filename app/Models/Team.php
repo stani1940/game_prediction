@@ -13,6 +13,7 @@ class Team extends Model
     protected $fillable = [
         'name',
         'flag',
+        'is_finalist'
     ];
 
     public function events(): HasMany
