@@ -33,3 +33,4 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('teams', [Teams::class,'render'])->name('teams');
+Route::get('events', [\App\Livewire\Events::class,'render'])->name('events');

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('away_team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->smallInteger('home_goals')->default(0);
             $table->smallInteger('away_goals')->default(0);
-            $table->enum('state', ['Scheduled', 'In Progress', 'finished'])->default('Scheduled');
+            $table->enum('state', ['Scheduled', 'In Progress', 'Finished'])->default('Scheduled');
             $table->enum('category',['Qualification', 'Group Round', 'Round of sixteen', 'Quarterfinal', 'Semifinal', 'Final']);
             $table->dateTime('start_time');
             $table->timestamps();
