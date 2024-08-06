@@ -15,8 +15,10 @@ class Events extends Component
                 ->orderBy("start_time")
                 ->get();
 
-        return view('livewire.events')->with([
+        return view('livewire.events')
+            ->with([
             'events' => $events,
-            ]);
+            ])
+            ->layout('layouts.base');
     }
 }

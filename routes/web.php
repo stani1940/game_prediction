@@ -1,5 +1,6 @@
 <?php
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Events;
 use App\Livewire\Teams;
 use Illuminate\Support\Facades\Route;
 
@@ -33,4 +34,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('teams', [Teams::class,'render'])->name('teams');
-Route::get('events', [\App\Livewire\Events::class,'render'])->name('events');
+Route::get('teams/{name}', [Teams::class,'team_details'])->name('team_details');
+
+Route::get('/events', [Events::class,'render'])->name('events');

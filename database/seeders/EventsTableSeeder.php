@@ -30,5 +30,30 @@ class EventsTableSeeder extends Seeder
             'category'=> 'Group Round',
             'start_time' => Carbon::create($year, 06, 15, 19, 00, 00,'Europe/Berlin')
         ]);
+
+        Event::create([
+            'home_team_id' => Team::where('name','=','Spain')->first()->id,
+            'away_team_id' => Team::where('name','=','Croatia')->first()->id,
+            'category'=> 'Group Round',
+            'start_time' => Carbon::create($year, 06, 15, 19, 00, 00,'Europe/Berlin')
+        ]);
+        Event::create([
+            'home_team_id' => Team::where('name','=','Italy')->first()->id,
+            'away_team_id' => Team::where('name','=','Albania')->first()->id,
+            'category'=> 'Group Round',
+            'start_time' => Carbon::create($year, 06, 15, 22, 00, 00,'Europe/Berlin')
+        ]);
+        Event::create([
+            'home_team_id' => Team::where('name','=','Slovenia')->first()->id,
+            'away_team_id' => Team::where('name','=','Denmark')->first()->id,
+            'category'=> 'Group Round',
+            'start_time' => Carbon::create($year, 06, 16, 19, 00, 00,'Europe/Berlin')
+        ]);
+        Event::create([
+            'home_team_id' => Team::where('name','=','Serbia')->first()->id,
+            'away_team_id' => Team::where('name','=','England')->first()->id,
+            'category'=> 'Group Round',
+            'start_time' => Carbon::create($year, 06, 16, 19, 00, 00,'Europe/Berlin')
+        ]);
     }
 }
