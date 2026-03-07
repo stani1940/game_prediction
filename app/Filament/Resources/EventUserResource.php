@@ -4,8 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EventUserResource\Pages;
 use App\Filament\Resources\EventUserResource\RelationManagers;
-use App\Models\Event;
-use App\Models\EventUser;
+use App\Models\Game;
+use App\Models\Prediction;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class EventUserResource extends Resource
 {
-    protected static ?string $model = EventUser::class;
+    protected static ?string $model = Prediction::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -25,24 +26,27 @@ class EventUserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
-                    ->required()
-                    ->numeric(),
-                Select::make('event_id')
-                    ->multiple()
-                    ->options(Event::all()->pluck('id', 'id'))
-                    ->searchable(),
+                Select::make('user_id')
+                    ->options(User::query()->pluck('username', 'id'))
+                    ->searchable()
+                    ->required(),
+                Select::make('game_id')
+                    ->options(Game::query()->pluck('title', 'id'))
+                    ->searchable()
+                    ->required(),
                 Forms\Components\TextInput::make('home_prediction')
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('away_prediction')
                     ->required()
                     ->numeric(),
-                Forms\Components\Toggle::make('is_available')
-                    ->required(),
+                Forms\Components\TextInput::make('points')
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\Toggle::make('is_open')
+                    ->required()
+                    ->default(true),
                 Forms\Components\DateTimePicker::make('prediction_time')
-                    ->required(),
-                Forms\Components\Toggle::make('is_boosted')
                     ->required(),
             ]);
     }
@@ -51,25 +55,27 @@ class EventUserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('event_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('user.username')
+                    ->label('User')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('game.title')
+                    ->label('Game')
+                    ->sortable()
+                    ->limit(30),
                 Tables\Columns\TextColumn::make('home_prediction')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('away_prediction')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_available')
+                Tables\Columns\TextColumn::make('points')
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_open')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('prediction_time')
                     ->dateTime()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_boosted')
-                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

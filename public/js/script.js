@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let hours = document.querySelector('.hours');
     let minutes = document.querySelector('.minutes');
     let seconds = document.querySelector('.seconds');
-    const start = new Date('2024-06-14 22:00:00Z').getTime();
+    const start = new Date('2026-06-14 22:00:00Z').getTime();
 
     function time() {
         requestAnimationFrame(time);
@@ -37,16 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     time();
     // count-down-end
+
+    const activeLink = document.querySelectorAll('ul li a');
+
+    for(let clickTab of activeLink){
+        clickTab.addEventListener('click', () => {
+            let activeClass = document.querySelector('.nav_link');
+            console.log(activeClass[0])
+            activeClass[0].classList.remove('active')
+            clickTab.classList.add('active');
+        }) ;
+    }
 });
 
-const activeLink = document.querySelectorAll('ul li a');
 
-for(let clickTab of activeLink){
-
-    clickTab.addEventListener('click', () => {
-        let activeClass = document.querySelector('.nav_link');
-        //console.log(1);
-        activeClass[0].classList.remove('active')
-        clickTab.classList.add('active');
-    }) ;
-}

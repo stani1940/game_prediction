@@ -55,8 +55,8 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                         <a class="nav-link text-dark text-center">
-                            {{ Auth::user()->name }}
-                            <span class="u-status">status: <b>{{Auth::user()->name}}</b></span>
+                            {{ Auth::user()?->name ?? 'User' }}
+                            <span class="u-status">status: <b>{{Auth::user()?->name ?? 'User'}}</b></span>
                         </a>
                     </li>
 

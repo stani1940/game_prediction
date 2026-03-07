@@ -44,7 +44,7 @@ body {
 }
 
 #hero, #content{
-    background: linear-gradient(var(--gr-1),var(--gr-2)), url(/public/storage/images/hero-image.jpg) no-repeat center center /cover;
+    background: linear-gradient(var(--gr-1),var(--gr-2)), url('/storage/images/hero-image.jpg') no-repeat center center /cover;
 }
 .header{
     background: var(--nav);

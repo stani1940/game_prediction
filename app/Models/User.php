@@ -9,10 +9,9 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
@@ -32,7 +31,11 @@ class User extends Authenticatable implements FilamentUser
         'username',
         'avatar',
         'boosts_left',
-        'being_notified'
+        'being_notified',
+        'active',
+        'staff',
+        'admin',
+        'hide_email',
     ];
 
     /**
@@ -53,6 +56,10 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'active' => 'boolean',
+        'staff' => 'boolean',
+        'admin' => 'boolean',
+        'hide_email' => 'boolean',
     ];
 
     public function role(): BelongsTo
@@ -63,10 +70,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function isAdmin(): bool
     {
-        if (str_contains(Auth::user()->role->name, 'admin')) {
-            return true;
-        }
-        return false;
+        return $this->admin === true;
     }
 
     //mutator
@@ -83,16 +87,8 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasVerifiedEmail();
     }
 
-    public function relation_events(): BelongsToMany
+    public function predictions(): HasMany
     {
-        return $this->belongsToMany(Event::class)
-            ->using(EventUser::class)
-            ->withPivot([
-                'home_prediction',
-                'away_prediction',
-                'is_available',
-                'prediction_time',
-                'is_boosted'
-            ]);
+        return $this->hasMany(Prediction::class);
     }
 }

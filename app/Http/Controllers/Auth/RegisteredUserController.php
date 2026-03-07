@@ -33,17 +33,18 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required'],
-            'avatar.*' => ['required|mimes:jpeg,jpg,png', 'max:2048'],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class],
+            'avatar' => ['required', 'file', 'mimes:jpeg,jpg,png', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         // Store the file in storage\app\public folder
+        $fileName = null;
 
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('avatars', $fileName, 'public');
         }
 

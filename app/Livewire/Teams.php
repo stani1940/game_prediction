@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Event;
+use App\Models\Game;
 use App\Models\Team;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -28,7 +28,7 @@ class Teams extends Component
     {
         $this->team = Team::all()->where('name',$name)->first();
 
-        $events = Event::where(function ($query) {
+        $events = Game::where(function ($query) {
             $query->where('home_team_id', '=', $this->team->id)
                 ->orWhere('away_team_id', '=', $this->team->id);
         })->where(function ($query) {

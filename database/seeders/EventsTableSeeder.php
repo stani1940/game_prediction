@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Event;
+use App\Models\Game;
 use App\Models\Team;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,43 +17,35 @@ class EventsTableSeeder extends Seeder
     {
         $year = 2024;
 
-       Event::create([
-           'home_team_id' => Team::where('name','=','Germany')->first()->id,
-           'away_team_id' => Team::where('name','=','Scotland')->first()->id,
-           'category' => 'Group Round',
-           'start_time' => Carbon::create($year, 06, 14, 21, 00, 00,'Europe/Berlin')
-       ]);
+        $fixtures = [
+            ['home' => 'Germany', 'away' => 'Scotland', 'month' => 6, 'day' => 14, 'hour' => 21],
+            ['home' => 'Hungary', 'away' => 'Switzerland', 'month' => 6, 'day' => 15, 'hour' => 19],
+            ['home' => 'Spain', 'away' => 'Croatia', 'month' => 6, 'day' => 15, 'hour' => 19],
+            ['home' => 'Italy', 'away' => 'Albania', 'month' => 6, 'day' => 15, 'hour' => 22],
+            ['home' => 'Slovenia', 'away' => 'Denmark', 'month' => 6, 'day' => 16, 'hour' => 19],
+            ['home' => 'Serbia', 'away' => 'England', 'month' => 6, 'day' => 16, 'hour' => 19],
+        ];
 
-        Event::create([
-            'home_team_id' => Team::where('name','=','Hungary')->first()->id,
-            'away_team_id' => Team::where('name','=','Switzerland')->first()->id,
-            'category'=> 'Group Round',
-            'start_time' => Carbon::create($year, 06, 15, 19, 00, 00,'Europe/Berlin')
-        ]);
+        $uid = 100;
 
-        Event::create([
-            'home_team_id' => Team::where('name','=','Spain')->first()->id,
-            'away_team_id' => Team::where('name','=','Croatia')->first()->id,
-            'category'=> 'Group Round',
-            'start_time' => Carbon::create($year, 06, 15, 19, 00, 00,'Europe/Berlin')
-        ]);
-        Event::create([
-            'home_team_id' => Team::where('name','=','Italy')->first()->id,
-            'away_team_id' => Team::where('name','=','Albania')->first()->id,
-            'category'=> 'Group Round',
-            'start_time' => Carbon::create($year, 06, 15, 22, 00, 00,'Europe/Berlin')
-        ]);
-        Event::create([
-            'home_team_id' => Team::where('name','=','Slovenia')->first()->id,
-            'away_team_id' => Team::where('name','=','Denmark')->first()->id,
-            'category'=> 'Group Round',
-            'start_time' => Carbon::create($year, 06, 16, 19, 00, 00,'Europe/Berlin')
-        ]);
-        Event::create([
-            'home_team_id' => Team::where('name','=','Serbia')->first()->id,
-            'away_team_id' => Team::where('name','=','England')->first()->id,
-            'category'=> 'Group Round',
-            'start_time' => Carbon::create($year, 06, 16, 19, 00, 00,'Europe/Berlin')
-        ]);
+        foreach ($fixtures as $fixture) {
+            Game::create([
+                'uid' => $uid++,
+                'home_team_id' => Team::where('name', '=', $fixture['home'])->first()->id,
+                'away_team_id' => Team::where('name', '=', $fixture['away'])->first()->id,
+                'home_goals' => 0,
+                'away_goals' => 0,
+                'state' => 'Not started',
+                'start_time' => Carbon::create(
+                    $year,
+                    $fixture['month'],
+                    $fixture['day'],
+                    $fixture['hour'],
+                    0,
+                    0,
+                    'Europe/Berlin'
+                ),
+            ]);
+        }
     }
 }

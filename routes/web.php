@@ -2,6 +2,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Livewire\Events;
 use App\Livewire\Teams;
+use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +38,8 @@ Route::get('teams', [Teams::class,'render'])->name('teams');
 Route::get('teams/{name}', [Teams::class,'team_details'])->name('team_details');
 
 Route::get('/events', [Events::class,'render'])->name('events');
+
+Route::get('/results', function () {
+    $results = Game::with('homeTeam', 'awayTeam')->finished()->get();
+    return view('results', ['results' => $results]);
+})->name('results');

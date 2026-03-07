@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Event;
+use App\Models\Game;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -10,7 +10,7 @@ class Events extends Component
 {
     public function render(): View
     {
-        $events = Event::query()
+        $events = Game::query()
                 ->where('state', '!=', 'Finished')
                 ->orderBy("start_time")
                 ->get();
